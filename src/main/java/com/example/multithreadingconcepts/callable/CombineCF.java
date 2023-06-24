@@ -17,8 +17,6 @@ public class CombineCF {
         //Using thenCombine() method to combine two independent futures
         System.out.println(combinedFuture());
 
-
-
     }
 
 
