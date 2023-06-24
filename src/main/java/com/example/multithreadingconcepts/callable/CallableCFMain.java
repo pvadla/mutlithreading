@@ -14,21 +14,18 @@ public class CallableCFMain {
 
         ExecutorService executorService = Executors.newFixedThreadPool(2);
 
-        for(int i = 0; i < 10; i++){
-            callCF(executorService);
-            //executorService.shutdown();
-        }
+//        for(int i = 0; i < 10; i++){
+//            callCF(executorService);
+//            //executorService.shutdown();
+//        }
+//
+//
+//        for(int i = 0; i < 10; i++){
+//            callCFSupplier(executorService);
+//        }
 
-
-        for(int i = 0; i < 10; i++){
-            callCFSupplier(executorService);
-        }
-
+        System.out.println(getString().get());
         executorService.shutdown();
-
-
-
-
 
     }
 
@@ -37,8 +34,6 @@ public class CallableCFMain {
         CompletableFuture<String> completableFuture = CompletableFuture.supplyAsync(() -> {
 
             //TimeUnit.SECONDS.sleep(1);
-
-
             return Thread.currentThread().getName();
         }, executorService);
 
@@ -52,5 +47,11 @@ public class CallableCFMain {
 
         //Block and get result of future
         System.out.println(completableFuture.get());
+    }
+
+    public static CompletableFuture<String> getString(){
+        return CompletableFuture.supplyAsync(() -> {
+           return "From CF method";
+        });
     }
 }
