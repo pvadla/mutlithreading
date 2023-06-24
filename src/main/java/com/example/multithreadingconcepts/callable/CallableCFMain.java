@@ -12,7 +12,7 @@ public class CallableCFMain {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
 
 
-        ExecutorService executorService = Executors.newFixedThreadPool(5);
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
 
         for(int i = 0; i < 10; i++){
             callCF(executorService);
@@ -36,11 +36,7 @@ public class CallableCFMain {
     public static void callCF(ExecutorService executorService) throws ExecutionException, InterruptedException {
         CompletableFuture<String> completableFuture = CompletableFuture.supplyAsync(() -> {
 
-            try{
-                TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            //TimeUnit.SECONDS.sleep(1);
 
 
             return Thread.currentThread().getName();
@@ -52,10 +48,9 @@ public class CallableCFMain {
     }
 
     public static void callCFSupplier(ExecutorService executorService) throws ExecutionException, InterruptedException {
-        CompletableFuture<String> completableFuture = CompletableFuture.supplyAsync(new SupplierTest());
+        CompletableFuture<String> completableFuture = CompletableFuture.supplyAsync(new SupplierTest(),executorService);
 
         //Block and get result of future
         System.out.println(completableFuture.get());
-        executorService.shutdown();
     }
 }
