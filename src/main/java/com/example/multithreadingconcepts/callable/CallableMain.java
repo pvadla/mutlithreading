@@ -9,7 +9,7 @@ public class CallableMain {
 
     public static void main(String[] args) throws Exception {
 
-        ExecutorService executor = Executors.newFixedThreadPool(10);
+        ExecutorService executor = Executors.newFixedThreadPool(2);
 
         List<Future<String>> list = new ArrayList<Future<String>>();
         Callable<String> callTest = new CallableTest();
@@ -20,10 +20,10 @@ public class CallableMain {
             list.add(ftr);
         }
         // If we want to block the task, we can use get method
-        for(int i = 0; i < 10; i++){
-            String str = executor.submit(callTest).get();
-            System.out.println(str);
-        }
+//        for(int i = 0; i < 10; i++){
+//            String str = executor.submit(callTest).get();
+//            System.out.println(str);
+//        }
 
 
         for(Future<String> l: list){
@@ -38,6 +38,13 @@ public class CallableMain {
 
 
         executor.shutdown();
+
+
+        // Using Completable Future
+
+
+
+
 
 
     }
